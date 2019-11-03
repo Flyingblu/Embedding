@@ -454,7 +454,7 @@ public:
 public:
 	virtual void train_topic()
 	{
-#pragma omp parallel for
+#pragma omp parallel
 		for (auto idoc = documents.begin(); idoc != documents.end(); ++idoc)
 		{
 			vec& v_doc = v_semantics[idoc - documents.begin()];

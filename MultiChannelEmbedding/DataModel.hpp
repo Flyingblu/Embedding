@@ -16,10 +16,8 @@ public:
 	vector<pair<pair<int, int>, int> >	data_test_false;
 
 public:
-	set<int>			set_tail;
-	set<int>			set_head;
-	set<string>			set_entity;
-	set<string>			set_relation;
+	set<unsigned int>			set_entity;
+	set<unsigned int>			set_relation;
 
 public:
 	vector<set<int>>	set_relation_tail;
@@ -57,6 +55,7 @@ public:
 	DataModel(const Dataset& dataset)
 	{
 		load_training(dataset.base_dir + dataset.training);
+		load_testing(dataset.base_dir + dataset.testing, data_test_true, data_test_false, dataset.self_false_sampling);
 		relation_hpt.resize(set_relation.size());
 		relation_tph.resize(set_relation.size());
 		for(auto i=0; i!=set_relation.size(); ++i)
@@ -83,9 +82,7 @@ public:
 		}
 
 		zeroshot_pointer = set_entity.size();
-		load_testing(dataset.base_dir + dataset.developing, data_dev_true, data_dev_false, dataset.self_false_sampling);
-		load_testing(dataset.base_dir + dataset.testing, data_test_true, data_test_false, dataset.self_false_sampling);
-		
+
 		set_relation_head.resize(set_entity.size());
 		set_relation_tail.resize(set_relation.size());
 		prob_head.resize(set_entity.size());
@@ -102,14 +99,14 @@ public:
 			set_relation_tail[i->second].insert(i->first.second);
 		}
 
-#pragma omp parallel for
+#pragma omp parallel
 #pragma ivdep
 		for (auto elem = prob_head.begin(); elem != prob_head.end(); ++elem)
 		{
 			*elem /= data_train.size();
 		}
 
-#pragma omp parallel for
+#pragma omp parallel
 #pragma ivdep
 		for (auto elem = prob_tail.begin(); elem != prob_tail.end(); ++elem)
 		{
@@ -225,57 +222,32 @@ public:
 
 	void load_training(const string& filename)
 	{
-		fstream fin(filename.c_str());
-		while(!fin.eof())
+		ifstream triple_file(filename, ios_base::binary);
+
+		size_t triple_size;
+		triple_file.read((char*)&triple_size, sizeof(size_t));
+		data_train.reserve(triple_size);
+		for (unsigned int i = 0; i < triple_size && triple_file; ++i)
 		{
-			string head, tail, relation;
-			fin>>head>>relation>>tail;
+			unsigned int tri_arr[3];
+			triple_file.read((char*)tri_arr, sizeof(unsigned int) * 3);
+			auto p = make_pair(make_pair(tri_arr[0], tri_arr[2]), tri_arr[1]);
+			data_train.push_back(p);
+			check_data_train.insert(p);
+			check_data_all.insert(p);
 
-			if (entity_name_to_id.find(head) == entity_name_to_id.end())
-			{
-				entity_name_to_id.insert(make_pair(head, entity_name_to_id.size()));
-				entity_id_to_name.push_back(head);
-			}
+			set_entity.insert(tri_arr[0]);
+			set_entity.insert(tri_arr[2]);
+			set_relation.insert(tri_arr[1]);
 
-			if (entity_name_to_id.find(tail) == entity_name_to_id.end())
-			{
-				entity_name_to_id.insert(make_pair(tail, entity_name_to_id.size()));
-				entity_id_to_name.push_back(tail);
-			}
-
-			if (relation_name_to_id.find(relation) == relation_name_to_id.end())
-			{
-				relation_name_to_id.insert(make_pair(relation, relation_name_to_id.size()));
-				relation_id_to_name.push_back(relation);
-			}
-
-			data_train.push_back(make_pair(
-				make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-				relation_name_to_id[relation]));
-
-			check_data_train.insert(make_pair(
-				make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-				relation_name_to_id[relation]));
-			check_data_all.insert(make_pair(
-				make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-				relation_name_to_id[relation]));
-
-			set_entity.insert(head);
-			set_entity.insert(tail);
-			set_relation.insert(relation);
-
-			++ count_entity[head];
-			++ count_entity[tail];
-
-			rel_heads[relation_name_to_id[relation]][entity_name_to_id[head]]
-				.push_back(entity_name_to_id[tail]);
-			rel_tails[relation_name_to_id[relation]][entity_name_to_id[tail]]
-				.push_back(entity_name_to_id[head]);
-			rel_finder[make_pair(entity_name_to_id[head], entity_name_to_id[tail])]
-				= relation_name_to_id[relation];
+			rel_heads[tri_arr[1]][tri_arr[0]]
+				.push_back(tri_arr[2]);
+			rel_tails[tri_arr[1]][tri_arr[2]]
+				.push_back(tri_arr[0]);
+			rel_finder[make_pair(tri_arr[0], tri_arr[2])]
+				= tri_arr[1];
 		}
-
-		fin.close();
+		triple_file.close();
 	}
 
 	void load_testing(	
@@ -284,94 +256,23 @@ public:
 		vector<pair<pair<int, int>,int>>& vin_false,
 		bool self_sampling = false)
 	{
-		fstream fin(filename.c_str());
-		if (self_sampling == false)
+		ifstream triple_file(filename, ios_base::binary);
+
+		size_t triple_size;
+		triple_file.read((char*)&triple_size, sizeof(size_t));
+		data_train.reserve(triple_size);
+		for (unsigned int i = 0; i < triple_size && triple_file; ++i)
 		{
-			while(!fin.eof())
-			{
-				string head, tail, relation;
-				int flag_true;
-
-				fin>>head>>relation>>tail;
-				fin>>flag_true;
-
-				if (entity_name_to_id.find(head) == entity_name_to_id.end())
-				{
-					entity_name_to_id.insert(make_pair(head, entity_name_to_id.size()));
-					entity_id_to_name.push_back(head);
-				}
-
-				if (entity_name_to_id.find(tail) == entity_name_to_id.end())
-				{
-					entity_name_to_id.insert(make_pair(tail, entity_name_to_id.size()));
-					entity_id_to_name.push_back(tail);
-				}
-
-				if (relation_name_to_id.find(relation) == relation_name_to_id.end())
-				{
-					relation_name_to_id.insert(make_pair(relation, relation_name_to_id.size()));
-					relation_id_to_name.push_back(relation);
-				}
-
-				set_entity.insert(head);
-				set_entity.insert(tail);
-				set_relation.insert(relation);
-
-				if (flag_true == 1)
-					vin_true.push_back(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation]));
-				else
-					vin_false.push_back(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation]));
-
-				check_data_all.insert(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation])); 
-			}
+			unsigned int tri_arr[3];
+			triple_file.read((char*)tri_arr, sizeof(unsigned int) * 3);
+			auto p = make_pair(make_pair(tri_arr[0], tri_arr[2]), tri_arr[1]);
+			vin_true.push_back(p);
+			check_data_all.insert(p);
+			set_entity.insert(tri_arr[0]);
+			set_entity.insert(tri_arr[2]);
+			set_relation.insert(tri_arr[1]);
 		}
-		else
-		{
-			while(!fin.eof())
-			{
-				string head, tail, relation;
-				pair<pair<int, int>, int>	sample_false;
-
-				fin>>head>>relation>>tail;
-
-				if (entity_name_to_id.find(head) == entity_name_to_id.end())
-				{
-					entity_name_to_id.insert(make_pair(head, entity_name_to_id.size()));
-					entity_id_to_name.push_back(head);
-				}
-
-				if (entity_name_to_id.find(tail) == entity_name_to_id.end())
-				{
-					entity_name_to_id.insert(make_pair(tail, entity_name_to_id.size()));
-					entity_id_to_name.push_back(tail);
-				}
-
-				if (relation_name_to_id.find(relation) == relation_name_to_id.end())
-				{
-					relation_name_to_id.insert(make_pair(relation, relation_name_to_id.size()));
-					relation_id_to_name.push_back(relation);
-				}
-
-				set_entity.insert(head);
-				set_entity.insert(tail);
-				set_relation.insert(relation);
-
-				sample_false_triplet(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation]), sample_false);
-
-				vin_true.push_back(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation]));
-				vin_false.push_back(sample_false); 
-
-				check_data_all.insert(make_pair(make_pair(entity_name_to_id[head], entity_name_to_id[tail]),
-					relation_name_to_id[relation]));
-			}
-		}
-
-		fin.close();
+		triple_file.close();
 	}
 
 	void sample_false_triplet(	

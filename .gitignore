@@ -41,3 +41,7 @@ $tf*/
 *.ipch
 #ignore thumbnails created by windows
 #Ignore files build by Visual Studio
+
+.vs/Embedding_old/v16/Browse.VC.db
+packages/
+data/

@@ -103,13 +103,13 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MultiChannelEmbedding</RootNamespace>
     <ProjectName>Embedding_old</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
   </PropertyGroup>
@@ -123,7 +123,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
     <UseILP64Interfaces>true</UseILP64Interfaces>
@@ -131,7 +131,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -141,7 +141,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CUDA|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -151,7 +151,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -161,7 +161,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Python|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -211,7 +211,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.3|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -227,7 +227,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.2|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -243,7 +243,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.1|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -261,16 +261,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseIntelMKL>No</UseIntelMKL>
-    <UseILP64Interfaces>false</UseILP64Interfaces>
+    <UseIntelMKL>Parallel</UseIntelMKL>
+    <UseILP64Interfaces>true</UseILP64Interfaces>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CUDA|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -279,7 +279,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>No</UseIntelMKL>
@@ -288,7 +288,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Python|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Parallel</UseIntelMKL>
@@ -297,21 +297,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.3|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.2|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run.1|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelMKL>Sequential</UseIntelMKL>
@@ -483,7 +483,7 @@
     <IncludePath>C:\Program Files\Python27\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
     <LibraryPath>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\lib\x64;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\mkl\lib\intel64;$(LibraryPath)</LibraryPath>
     <ReferencePath>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
@@ -555,6 +555,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -958,13 +959,15 @@
       <OffloadOpenMPTarget>Default</OffloadOpenMPTarget>
       <OpenMP>None</OpenMP>
       <Cpp0xSupport>true</Cpp0xSupport>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>cublas.lib;cublas_device.lib;cudart.lib;nvblas.lib;mkl_rt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mkl_intel_ilp64.lib;mkl_core.lib;mkl_intel_thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Program Files (x86)\Intel Math Kernel Library\compilers_and_libraries_2019.5.281\windows\mkl\lib\intel64_win</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='CUDA|x64'">
@@ -1140,7 +1143,21 @@
     <ClInclude Include="Storage.hpp" />
     <ClInclude Include="Task.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets" Condition="Exists('..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets')" />
+    <Import Project="..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets" Condition="Exists('..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets')" />
+    <Import Project="..\packages\boost.1.71.0.0\build\boost.targets" Condition="Exists('..\packages\boost.1.71.0.0\build\boost.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets'))" />
+    <Error Condition="!Exists('..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets'))" />
+    <Error Condition="!Exists('..\packages\boost.1.71.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.71.0.0\build\boost.targets'))" />
+  </Target>
 </Project>

@@ -3,6 +3,7 @@
 #include "ModelConfig.hpp"
 #include "DataModel.hpp"
 #include <boost/progress.hpp>
+#include <omp.h>
 
 using namespace std;
 using namespace arma;
@@ -70,8 +71,7 @@ public:
 	virtual void train(bool last_time = false)
 	{
 		++epos;
-
-#pragma omp parallel for
+#pragma omp parallel
 		for (auto i = data_model.data_train.begin(); i != data_model.data_train.end(); ++i)
 		{
 			train_triplet(*i);
@@ -232,7 +232,7 @@ public:
 
 		boost::progress_display cons_bar(data_model.data_test_true.size() / 100);
 
-#pragma omp parallel for
+#pragma omp parallel
 		for (auto i = data_model.data_test_true.begin(); i != data_model.data_test_true.end(); ++i)
 		{
 			++cnt;
@@ -377,7 +377,7 @@ public:
 
 		int cnt = 0;
 
-#pragma omp parallel for
+#pragma omp parallel
 		for (auto i = data_model.data_test_true.begin(); i != data_model.data_test_true.end(); ++i)
 		{
 			++cnt;
@@ -541,10 +541,14 @@ public:
 	virtual vec entity_representation(int entity_id) const
 	{
 		cout << "BAD";
+		vec a;
+		return a;
 	}
 
 	virtual vec relation_representation(int relation_id) const
 	{
 		cout << "BAD";
+		vec a;
+		return a;
 	}
 };
